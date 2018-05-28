@@ -34,4 +34,8 @@ export default () =>
         <div>
             <Link to="/page-2/">Link</Link>
         </div>
+
+        <div>
+            <Link to="/about-css-modules/">About</Link>
+        </div>
     </div>
