@@ -30,6 +30,7 @@ export default ({ children, data }) => (
             <ListLink to="/about">About</ListLink>
             <ListLink to="/about-panda">About Pandas</ListLink>
             <ListLink to="/contact">Contact</ListLink>
+            <ListLink to="/my-files">Source Files</ListLink>
         </ul>
         {children()}
     </g.Div>
