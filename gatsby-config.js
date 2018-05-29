@@ -1,4 +1,7 @@
 module.exports = {
+  siteMetadata: {
+    title: `HankLiu's Website`,
+  },
   plugins: [
     {
       resolve: `gatsby-plugin-typography`,
