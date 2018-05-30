@@ -17,23 +17,26 @@ const linkStyle = css({ float: `right` });
 export default ({ children, data }) => (
     <g.Div
         margin={`0 auto`}
-        maxWidth={700}
-        padding={rhythm(2)}
-        paddingTop={rhythm(1.5)}
     >
-        <Link to='/'>
-            <g.H3 marginBottom={rhythm(2)} display={`inline-block`}>
-                {data.site.siteMetadata.title}
-            </g.H3>
-        </Link>
-        <ul className={linkStyle}>
-            <ListLink to="/about">About</ListLink>
-            <ListLink to="/blog">Blog</ListLink>
-            <ListLink to="/about-panda">About Pandas</ListLink>
-            <ListLink to="/contact">Contact</ListLink>
-            <ListLink to="/my-files">Source Files</ListLink>
-        </ul>
-        {children()}
+        <header style={{ backgroundColor: `#FFA500` }}>
+            <div style={{ margin: 'auto', maxWidth: 800 }}>
+                <Link to='/'>
+                    <g.H3 marginBottom={rhythm(2)} display={`inline-block`}>
+                        {data.site.siteMetadata.title}
+                    </g.H3>
+                </Link>
+                <ul className={linkStyle}>
+                    <ListLink to="/about">About</ListLink>
+                    <ListLink to="/blog">Blog</ListLink>
+                    <ListLink to="/about-panda">About Pandas</ListLink>
+                    <ListLink to="/contact">Contact</ListLink>
+                    <ListLink to="/my-files">Source Files</ListLink>
+                </ul>
+            </div>
+        </header>
+        <div style={{ margin: '3rem auto', maxWidth: 600 }}>
+            {children()}
+        </div>
     </g.Div>
 );
 

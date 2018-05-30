@@ -2,7 +2,7 @@ import React from "react"
 import Link from "gatsby-link"
 
 export default () => 
-    <div style={{ color: `tomato` }}>
+    <div>
         <h1>Amazing Pandas Eating Things</h1>
         <div>
             <img

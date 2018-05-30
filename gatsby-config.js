@@ -19,5 +19,9 @@ module.exports = {
       },
     },
   ],
+  pathPrefix: `/gatsby-website`
 };
+
+
+
 
