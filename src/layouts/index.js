@@ -19,9 +19,9 @@ export default ({ children, data }) => (
         margin={`0 auto`}
     >
         <header style={{ backgroundColor: `#FFA500` }}>
-            <div style={{ margin: 'auto', maxWidth: 800 }}>
+            <div style={{ margin: 'auto', maxWidth: 800, lineHeight: 5 }}>
                 <Link to='/'>
-                    <g.H3 marginBottom={rhythm(2)} display={`inline-block`}>
+                    <g.H3 display={`inline-block`}>
                         {data.site.siteMetadata.title}
                     </g.H3>
                 </Link>
