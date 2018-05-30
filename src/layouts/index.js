@@ -28,6 +28,7 @@ export default ({ children, data }) => (
         </Link>
         <ul className={linkStyle}>
             <ListLink to="/about">About</ListLink>
+            <ListLink to="/blog">Blog</ListLink>
             <ListLink to="/about-panda">About Pandas</ListLink>
             <ListLink to="/contact">Contact</ListLink>
             <ListLink to="/my-files">Source Files</ListLink>
