@@ -1,5 +1,9 @@
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const path = require(`path`);
+const webpack = require("webpack");
+const _ = require("lodash");
+const Promise = require("bluebird");
+const { store } = require(`./node_modules/gatsby/dist/redux`);
 
 // create route node for markdown files
 exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {

@@ -9,6 +9,7 @@
     "deploy": "gatsby build --prefix-paths && gh-pages -d public"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "gatsby": "^1.9.250",
     "gatsby-link": "^1.6.40",
     "gatsby-plugin-catch-links": "^1.0.22",
@@ -37,7 +38,9 @@
     "typography-theme-fairy-gates": "^0.15.11"
   },
   "devDependencies": {
+    "babel-plugin-dynamic-import-webpack": "^1.0.2",
     "dotenv": "^5.0.1",
-    "gh-pages": "^1.1.0"
+    "gh-pages": "^1.1.0",
+    "webpack-bundle-analyzer": "^2.13.1"
   }
 }
