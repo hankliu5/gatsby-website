@@ -28,8 +28,8 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
 exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
   return new Promise((resolve, reject) => {
-    const postTemplate = path.resolve("./src/templates/PostTemplates.js");
-    const pageTemplate = path.resolve("./src/templates/PageTemplates.js");
+    const postTemplate = path.resolve("./src/templates/PostTemplate.js");
+    const pageTemplate = path.resolve("./src/templates/PageTemplate.js");
     graphql(
       `
         {
