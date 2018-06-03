@@ -30,8 +30,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   return new Promise((resolve, reject) => {
     const postTemplate = path.resolve("./src/templates/PostTemplate.js");
     const pageTemplate = path.resolve("./src/templates/PageTemplate.js");
-    graphql(
-      `
+    resolve(
+      graphql(
+        `
         {
           allMarkdownRemark(filter: { id: { regex: "//posts|pages//" } }, limit: 1000) {
             edges {
@@ -46,27 +47,28 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           }
         }
       `
-    ).then((result) => {
-      if (result.errors) {
-        console.log(result.errors);
-        reject(result.errors);
-      }
+      ).then((result) => {
+        if (result.errors) {
+          console.log(result.errors);
+          reject(result.errors);
+        }
 
-      // create posts and pages.
-      _.each(result.data.allMarkdownRemark.edges, edge => {
-        const slug = edge.node.fields.slug;
-        const isPost = /posts/.test(edge.node.id);
+        // create posts and pages.
+        _.each(result.data.allMarkdownRemark.edges, edge => {
+          const slug = edge.node.fields.slug;
+          const isPost = /posts/.test(edge.node.id);
 
-        createPage({
-          path: slug,
-          component: isPost ? postTemplate : pageTemplate,
-          context: {
-            slug: slug
-          }
-        })
-      });
-    });
-  })
+          createPage({
+            path: slug,
+            component: isPost ? postTemplate : pageTemplate,
+            context: {
+              slug: slug
+            }
+          })
+        });
+      })
+    );
+  });
 }
 
 exports.modifyWebpackConfig = ({ config, stage }) => {
