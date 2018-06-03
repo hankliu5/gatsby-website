@@ -32,20 +32,20 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
     const pageTemplate = path.resolve("./src/templates/PageTemplates.js");
     graphql(
       `
-                {
-                    allMarkdownRemark(filter: { id: { regex: "//posts|pages//" } }, limit: 1000) {
-                        edges {
-                            node {
-                                id
-                                fields {
-                                    slug
-                                    prefix
-                                }
-                            }
-                        }
-                    }
+        {
+          allMarkdownRemark(filter: { id: { regex: "//posts|pages//" } }, limit: 1000) {
+            edges {
+              node {
+                id
+                fields {
+                  slug
+                  prefix
                 }
-            `
+              }
+            }
+          }
+        }
+      `
     ).then((result) => {
       if (result.errors) {
         console.log(result.errors);
