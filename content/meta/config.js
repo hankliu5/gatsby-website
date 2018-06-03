@@ -7,6 +7,9 @@ module.exports = {
     pathPrefix: "/gatsby-website",
     siteLanguage: "en",
 
+    // author
+    authorName: "Hank Liu",
+    
     // manifest.json
     manifestName: "HankLiu's Website",
     manifestStartUrl: "/",
