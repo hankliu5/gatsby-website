@@ -7,44 +7,95 @@ const { store } = require(`./node_modules/gatsby/dist/redux`);
 
 // create route node for markdown files
 exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
-    const { createNodeField } = boundActionCreators;
-
-    if (node.internal.type === `MarkdownRemark`) {
-        const slug = createFilePath({ node, getNode, basePath: `pages` });
-        createNodeField({
-            node,
-            name: `slug`,
-            value: slug,
-        })
-    }
+  const { createNodeField } = boundActionCreators;
+  if (node.internal.type === `MarkdownRemark`) {
+    const slug = createFilePath({ node, getNode, basePath: `pages` });
+    const separatorIndex = ~slug.indexOf("--") ? slug.indexOf("--") : 0;
+    const shortSlugStart = separatorIndex ? separatorIndex + 2 : 0;
+    createNodeField({
+      node,
+      name: `slug`,
+      value: `${separatorIndex ? "/" : ""}${slug.substring(shortSlugStart)}`,
+    })
+    createNodeField({
+      node,
+      name: `prefix`,
+      value: separatorIndex ? slug.substring(1, separatorIndex) : ""
+    });
+  }
 };
 
 exports.createPages = ({ graphql, boundActionCreators }) => {
-    const { createPage } = boundActionCreators;
-    return new Promise((resolve, reject) => {
-        graphql(`
-            {
-                allMarkdownRemark {
-                    edges {
-                        node {
-                            fields {
-                                slug
+  const { createPage } = boundActionCreators;
+  return new Promise((resolve, reject) => {
+    const postTemplate = path.resolve("./src/templates/PostTemplates.js");
+    const pageTemplate = path.resolve("./src/templates/PageTemplates.js");
+    graphql(
+      `
+                {
+                    allMarkdownRemark(filter: { id: { regex: "//posts|pages//" } }, limit: 1000) {
+                        edges {
+                            node {
+                                id
+                                fields {
+                                    slug
+                                    prefix
+                                }
                             }
                         }
                     }
                 }
-            }
-        `).then((result) => {
-            result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-                createPage({
-                    path: node.fields.slug,
-                    component: path.resolve(`./src/templates/blog-post.js`),
-                    context: {
-                        slug: node.fields.slug,
-                    }
-                })
-            })
-            resolve();
-        });
-    })
+            `
+    ).then((result) => {
+      if (result.errors) {
+        console.log(result.errors);
+        reject(result.errors);
+      }
+
+      // create posts and pages.
+      _.each(result.data.allMarkdownRemark.edges, edge => {
+        const slug = edge.node.fields.slug;
+        const isPost = /posts/.test(edge.node.id);
+
+        createPage({
+          path: slug,
+          component: isPost ? postTemplate : pageTemplate,
+          context: {
+            slug: slug
+          }
+        })
+      });
+    });
+  })
 }
+
+exports.modifyWebpackConfig = ({ config, stage }) => {
+  if (stage === "build-javascript") {
+    let components = store.getState().pages.map(page => page.componentChunkName);
+    components = _.uniq(components);
+    config.plugin("CommonsChunkPlugin", webpack.optimize.CommonChunkPlugin, [
+      {
+        name: `commons`,
+        chunks: [`app`, ...components],
+        minChunks: (module, count) => {
+          const vendorModuleList = [];
+          const isFramework = _.some(
+            vendorModuleList.map(vendor => {
+              const regex = new RegExp(`[\\\\/]node_modules[\\\\/]${vendor}[\\\\/].*`, `i`);
+              return regex.test(module.resource);
+            })
+          );
+          return isFramework || count > 1
+        }
+      }
+    ]);
+  }
+  return config;
+}
+
+exports.modifyBabelrc = ({ babelrc }) => {
+  return {
+    ...babelrc,
+    plugins: babelrc.plugins.concat([`syntax-dynamic-import`, `dynamic-import-webpack`])
+  };
+};
