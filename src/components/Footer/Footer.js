@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import injectSheet from "react-jss"'
+import injectSheet from "react-jss";
 import Footnote from "./Footnote";
 
 const styles = theme => ({
@@ -25,7 +25,7 @@ const Footer = props => {
 
   return (
     <footer className={classes.footer}>
-      <Footnote content{html} />
+      <Footnote content={html} />
     </footer>
   );
 };

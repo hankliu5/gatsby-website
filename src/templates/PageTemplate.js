@@ -7,7 +7,7 @@ import { moveNavigatorAside } from "../utils/shared";
 import Main from "../components/Main/";
 import Page from "../components/Page/";
 import Footer from "../components/Footer/";
-import Seo from "..components/Seo";
+import Seo from "../components/Seo";
 
 class PageTemplate extends React.Component {
   moveNavigatorAside = moveNavigatorAside.bind(this);

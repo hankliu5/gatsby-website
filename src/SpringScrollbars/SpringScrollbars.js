@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { SpringSystem, MathUtil } from "rebound";
 import { forceCheck } from "react-lazyload";
 import { connect } from "react-redux";
-import { setScrollToTop } from "../../state/store";
+import { setScrollToTop } from "../state/store";
 
 class SpringScrollbars extends Component {
   constructor(props, ...rest) {

@@ -22,7 +22,7 @@ const styles = theme => ({
       textAlign: "center"
     },
     "& li": {
-      display: "inline-block"
+      display: "inline-block",
       margin: "0 .3em"
     }
   }
