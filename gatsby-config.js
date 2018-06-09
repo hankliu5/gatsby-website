@@ -33,6 +33,9 @@ module.exports = {
     description: config.siteDescription,
     siteUrl: config.siteUrl,
     pathPrefix: config.pathPrefix,
+    facebook: {
+      appId: process.env.FB_APP_ID ? process.env.FB_APP_ID : ""
+    },
   },
   plugins: [
     {

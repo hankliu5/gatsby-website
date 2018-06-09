@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
-import SpringScrollbars from "../../SpringScrollBars";
+import SpringScrollbars from "../SpringScrollBars";
 
 const styles = theme => ({
   main: {

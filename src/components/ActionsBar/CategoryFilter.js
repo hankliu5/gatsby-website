@@ -4,7 +4,7 @@ import injectSheet from "react-jss";
 import { MenuItem, MenuList } from "material-ui/Menu";
 import IconButton from  "material-ui/IconButton";
 import { Manager, Targer, Popper } from "react-popper";
-import ClickAwayListener from "material-ui/util/ClickAwayListener";
+import ClickAwayListener from "material-ui/utils/ClickAwayListener";
 import Grow from "material-ui/transitions/Grow";
 import Paper from "material-ui/Paper";
 import classNames from "classnames";
