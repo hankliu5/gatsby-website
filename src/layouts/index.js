@@ -27,3 +27,140 @@ const InfoBox = asyncComponent(() =>
       afterRight={true}
     />
 );
+
+class Layout extends React.Component {
+  timeouts = {};
+  categories = [];
+
+  componentDidMount() {
+    this.props.setIsWideScreen(isWideScreen());
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", this.resizeThrottler, false);
+    }
+  }
+
+  componentWillMount() {
+    if (typeof localStorage !== "undefined") {
+      const inLocal = +localStorage.getItem("font-size-increase");
+      const inStore = this.props.fontSizeIncrease;
+
+      if (inLocal && inLocal !== inStore && inLocal >= 1 && inLocal <= 1.5) {
+        this.props.setFontSizeIncrease(inLocal);
+      }
+    }
+
+    this.getCategories();
+  }
+
+  getCategories = () => {
+    this.categories = this.props.data.posts.edges.reduce((list, edge, i) => {
+      const category = edge.node.frontmatter.category;
+      if (category && !~list.indexOf(category)) {
+        return list.concat(edge.node.frontmatter.category);
+      } else {
+        return list
+      }
+    }, []);
+  };
+
+  resizeThrottler = () => {
+    return timeoutThrottlerHandler(this.timeouts, "resize", 500, this.resizeHandler);
+  };
+
+  resizeHandler = () => {
+    this.props.setIsWideScreen(isWideScreen);
+  };
+
+  render() {
+    const { children, data } = this.props;
+
+    return (
+      <MuiThemeProvider theme={theme}>
+        <div
+          style={{
+            padding: "1px",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            overflow: "hidden"
+          }}
+        >
+          {children()}
+          <Navigator posts={data.posts.edges} />
+          <ActionsBar categories={this.categories} />
+          <InfoBar pages={data.pages.edges} parts={data.parts.edges} />
+          {this.props.isWideScreen && <InfoBox pages={data.pages.edges} parts={data.parts.edges} />}
+        </div>
+      </MuiThemeProvider>
+    )
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    pages: state.pages,
+    isWideScreen: state.isWideScreen,
+    fontSizeIncrease: state.fontSizeIncrease
+  };
+};
+
+const mapDispatchToProps = {
+  setIsWideScreen,
+  setFontSizeIncrease
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(globals)(Layout));
+
+//eslint-disable-next-line no-undef
+export const query = graphql`
+  query LayoutQuery {
+    posts: allMarkdownRemark(
+      filter: { id: { regex: "//posts//" } }
+      sort: { fields: [fields__prefix], order: DESC }
+    ) {
+      edges {
+        node {
+          excerpt
+          fields {
+            slug
+            prefix
+          }
+          frontmatter {
+            title
+            subtitle
+            category
+          }
+        }
+      }
+    }
+    pages: allMarkdownRemark(
+      filter: { id: { regex: "//pages//" }, fields: { prefix: { regex: "/^\\d+$/" } } }
+      sort: { fields: [fields__prefix], order: ASC }
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+            prefix
+          }
+          frontmatter {
+            title
+            menuTitle
+          }
+        }
+      }
+    }
+    parts: allMarkdownRemark(filter: { id: { regex: "//parts//" } }) {
+      edges {
+        node {
+          html
+          frontmatter {
+            title
+          }
+        }
+      }
+    }
+  } 
+`;
