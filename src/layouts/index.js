@@ -14,3 +14,5 @@ import Loading from "../components/common/Loading/";
 import Navigator from "../components/Navigator/";
 import ActionsBar from "../components/ActionsBar/";
 import InfoBar from "../components/InfoBar/";
+
+import { isWideScreen, timeoutThrottlerHandler } from "../utils/helpers";
