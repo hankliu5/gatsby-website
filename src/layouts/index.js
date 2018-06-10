@@ -16,3 +16,14 @@ import ActionsBar from "../components/ActionsBar/";
 import InfoBar from "../components/InfoBar/";
 
 import { isWideScreen, timeoutThrottlerHandler } from "../utils/helpers";
+
+const InfoBox = asyncComponent(() =>
+  import("../components/InfoBox/").then(
+    module => {
+      return module;
+    }).catch(error => {}),
+    <Loading 
+      overrides={{ width: `${theme.info.sizes.width}px`, height: "100vh", right: "auto"}}
+      afterRight={true}
+    />
+);
