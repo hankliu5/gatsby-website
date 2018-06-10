@@ -118,7 +118,7 @@ export const query = graphql`
   query LayoutQuery {
     posts: allMarkdownRemark(
       filter: { id: { regex: "//posts//" } }
-      sort: { fields: [fields__prefix], order: DESC }
+      sort: { fields: [fields___prefix], order: DESC }
     ) {
       edges {
         node {
@@ -129,7 +129,7 @@ export const query = graphql`
           }
           frontmatter {
             title
-            subtitle
+            subTitle
             category
           }
         }
@@ -137,7 +137,7 @@ export const query = graphql`
     }
     pages: allMarkdownRemark(
       filter: { id: { regex: "//pages//" }, fields: { prefix: { regex: "/^\\d+$/" } } }
-      sort: { fields: [fields__prefix], order: ASC }
+      sort: { fields: [fields___prefix], order: ASC }
     ) {
       edges {
         node {

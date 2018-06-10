@@ -1,6 +1,7 @@
 ---
 title: How to install, setup and add new content to the personalBlog starter
 subTitle: GatsbyJS starter instruction
+category: "Tutorial"
 cover: photo-1465070845512-2b2dbdc6df66-cover.jpg
 ---
 

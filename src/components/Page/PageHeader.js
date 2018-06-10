@@ -38,7 +38,7 @@ const styles = theme => ({
   }
 });
 
-const Header = props => {
+const PageHeader = props => {
   const { classes, title } = props;
   return (
     <header className={classes.header}>
@@ -52,4 +52,4 @@ Header.PropTypes = {
   title: PropTypes.string.isRequired
 };
 
-export default injectSheet(styles)(Header);
+export default injectSheet(styles)(PageHeader);

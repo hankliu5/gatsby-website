@@ -54,6 +54,8 @@ const mapDispatchToProps = {
   setNavigatorShape
 }
 
+export default connect(mapStateToProps, mapDispatchToProps)(PostTemplate);
+
 //eslint-disable-next-line no-undef
 export const postQuery = graphql`
   query PostBySlug($slug: String!) {
@@ -72,7 +74,7 @@ export const postQuery = graphql`
       id
       html
     }
-    footnote: markdownRemark(id: { regex: "/footnote" }) {
+    footnote: markdownRemark(id: { regex: "/footnote/" }) {
       id
       html
     }

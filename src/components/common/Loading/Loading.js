@@ -46,4 +46,4 @@ Loading.propTypes = {
   overrides: PropTypes.object
 };
 
-export default injectSheet(styles)(loading);
+export default injectSheet(styles)(Loading);
