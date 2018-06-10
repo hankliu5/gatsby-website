@@ -17,4 +17,7 @@ module.exports = {
     manifestThemeColor: colors.background,
     manifestDisplay: "standalone",
 
+    // info
+    infoTitle: "Hank Liu",
+    infoTitleNote: "Second Year Master's Computer Science Student in NCSU"
 }
