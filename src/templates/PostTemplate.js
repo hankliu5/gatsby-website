@@ -66,7 +66,6 @@ export const postQuery = graphql`
       }
       frontmatter {
         title
-        subTitle
       }
     }
     author: markdownRemark(id: { regex: "/author/" }) {

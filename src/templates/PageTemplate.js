@@ -61,7 +61,7 @@ export const pageQuery = graphql`
       html
     }
     site {
-      siteMetaData {
+      siteMetadata {
         facebook {
           appId
         }
